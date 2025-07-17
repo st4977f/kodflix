@@ -1,84 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Daredevil from './covers/daredevil-cover.jpg';
-import MyNameIsEarl from './covers/my-name-is-earl.jpg';
-import Ozark from './covers/ozark.jpg';
-import SweetHome from './/covers/sweet-home.jpg';
-import TheMentalist from './covers/the-mentalist.jpg';
-import Westworld from './covers/westworld.jpg';
+import Daredevil from './cover/images/daredevil-cover.jpg';
+import MyNameIsEarl from './cover/images/my-name-is-earl.jpg';
+import Ozark from './cover/images/ozark.jpg';
+import SweetHome from './/cover/images/sweet-home.jpg';
+import TheMentalist from './cover/images/the-mentalist.jpg';
+import Westworld from './cover/images/westworld.jpg';
+import Cover from './cover/Cover';
 
 function App() {
   return (
     <div className="App">
       <div className="image-cover-row">
-        <div className="image-cover-row-item">
-          <img
-            src={Daredevil}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>Daredevil</h3>
-            <p>Action | Crime | Drama</p>
-          </div>
-        </div>
-        <div className="image-cover-row-item">
-          <img
-            src={MyNameIsEarl}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>My Name Is Earl</h3>
-            <p>Comedy</p>
-          </div>
-        </div>
-        <div className="image-cover-row-item">
-          <img
-            src={Ozark}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>Ozark</h3>
-            <p>Crime | Drama | Thriller</p>
-          </div>
-        </div>
+        <Cover
+          image={Daredevil}
+          title="Daredevil"
+          description="Action | Crime | Drama"
+        />
+        <Cover
+          image={MyNameIsEarl}
+          title="My Name Is Earl"
+          description="Comedy"
+        />
+        <Cover
+          image={Ozark}
+          title="Ozark"
+          description="Crime | Drama | Thriller"
+        />
       </div>
       <div className="image-cover-row">
-        <div className="image-cover-row-item">
-          <img
-            src={SweetHome}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>Sweet Home</h3>
-            <p>Action | Drama | Horror</p>
-          </div>
-        </div>
-        <div className="image-cover-row-item">
-          <img
-            src={TheMentalist}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>The Mentalist</h3>
-            <p>Crime | Drama | Mystery</p>
-          </div>
-        </div>
-        <div className="image-cover-row-item">
-          <img
-            src={Westworld}
-            alt="Favourite Movie Cover"
-            className="image-cover"
-          />
-          <div className="image-cover-row-item-overlay">
-            <h3>Westworld</h3>
-            <p>Drama | Mystery | Sci-Fi</p>
-          </div>
-        </div>
+        <Cover
+          image={SweetHome}
+          title="Sweet Home"
+          description="Action | Drama | Horror"
+        />
+        <Cover
+          image={TheMentalist}
+          title="The Mentalist"
+          description="Crime | Drama | Mystery"
+        />
+        <Cover
+          image={Westworld}
+          title="Westworld"
+          description="Drama | Mystery | Sci-Fi"
+        />
       </div>
     </div>
   );

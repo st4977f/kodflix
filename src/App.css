@@ -4,33 +4,11 @@
   justify-content: space-around;
 }
 
-.image-cover-row-item {
+.image-cover-row >* {
   flex-basis: 100%;
   flex: 1;
   position: relative;
   overflow: hidden;
-}
-
-.image-cover-row-item img {
-  height: 100%;
-  width: 100%;
-}
-
-.image-cover-row-item-overlay {
-  position: absolute;
-  opacity: .8;
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 30px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: bottom 0.5s ease;
-  bottom: -100%;
-}
-
-.image-cover-row-item:hover .image-cover-row-item-overlay {
-  bottom: 0;
 }
 
 
