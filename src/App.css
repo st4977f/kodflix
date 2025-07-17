@@ -7,12 +7,31 @@
 .image-cover-row-item {
   flex-basis: 100%;
   flex: 1;
+  position: relative;
 }
 
 .image-cover-row-item img {
   height: 100%;
   width: 100%;
 }
+
+.image-cover-row-item-overlay {
+  display: none;
+  position: absolute;
+  opacity: .8;
+  bottom: 0;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.image-cover-row-item:hover .image-cover-row-item-overlay {
+  display: block;
+}
+
 
 @media only screen and (max-width: 640px) {
 

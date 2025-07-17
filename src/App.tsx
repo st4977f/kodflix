@@ -17,6 +17,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>Daredevil</h3>
+            <p>Action | Crime | Drama</p>
+          </div>
         </div>
         <div className="image-cover-row-item">
           <img
@@ -24,6 +28,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>My Name Is Earl</h3>
+            <p>Comedy</p>
+          </div>
         </div>
         <div className="image-cover-row-item">
           <img
@@ -31,6 +39,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>Ozark</h3>
+            <p>Crime | Drama | Thriller</p>
+          </div>
         </div>
       </div>
       <div className="image-cover-row">
@@ -40,6 +52,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>Sweet Home</h3>
+            <p>Action | Drama | Horror</p>
+          </div>
         </div>
         <div className="image-cover-row-item">
           <img
@@ -47,6 +63,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>The Mentalist</h3>
+            <p>Crime | Drama | Mystery</p>
+          </div>
         </div>
         <div className="image-cover-row-item">
           <img
@@ -54,6 +74,10 @@ function App() {
             alt="Favourite Movie Cover"
             className="image-cover"
           />
+          <div className="image-cover-row-item-overlay">
+            <h3>Westworld</h3>
+            <p>Drama | Mystery | Sci-Fi</p>
+          </div>
         </div>
       </div>
     </div>
