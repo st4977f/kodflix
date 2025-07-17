@@ -8,6 +8,7 @@
   flex-basis: 100%;
   flex: 1;
   position: relative;
+  overflow: hidden;
 }
 
 .image-cover-row-item img {
@@ -16,20 +17,20 @@
 }
 
 .image-cover-row-item-overlay {
-  display: none;
   position: absolute;
   opacity: .8;
-  bottom: 0;
   background-color: black;
   color: white;
   text-align: center;
   padding: 30px;
   width: 100%;
   box-sizing: border-box;
+  transition: bottom 0.5s ease;
+  bottom: -100%;
 }
 
 .image-cover-row-item:hover .image-cover-row-item-overlay {
-  display: block;
+  bottom: 0;
 }
 
 
