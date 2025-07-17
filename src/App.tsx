@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Daredevil from './daredevil-cover.jpg';
-import MyNameIsEarl from './my-name-is-earl.jpg';
-import Ozark from './ozark.jpg';
-import SweetHome from './sweet-home.jpg';
-import TheMentalist from './the-mentalist.jpg';
-import Westworld from './westworld.jpg';
+import Daredevil from './covers/daredevil-cover.jpg';
+import MyNameIsEarl from './covers/my-name-is-earl.jpg';
+import Ozark from './covers/ozark.jpg';
+import SweetHome from './/covers/sweet-home.jpg';
+import TheMentalist from './covers/the-mentalist.jpg';
+import Westworld from './covers/westworld.jpg';
 
 function App() {
   return (
