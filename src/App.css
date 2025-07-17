@@ -1,20 +1,3 @@
-
-.image-cover-row {
-  display: flex;
-  justify-content: space-around;
-}
-
-.image-cover-row >* {
-  flex-basis: 100%;
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-}
-
-
-@media only screen and (max-width: 640px) {
-
-  .image-cover-row {
-      display: block;
-  }
+.App{
+  text-align: center;
 }

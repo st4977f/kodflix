@@ -7,16 +7,16 @@ interface CoverProps {
     description: string;
 }
 
-export default class Cover extends React.Component<CoverProps> {
-    render() {
-        return (
-            <div className='cover'>
-                <img src={this.props.image} alt='' />
-                <div className='cover-overlay'>
-                    <h1>{this.props.title}</h1>
-                    <p>{this.props.description}</p>
-                </div>
+const Cover: React.FC<CoverProps> = ({ image, title, description }) => {
+    return (
+        <div className='cover'>
+            <img src={image} alt='' />
+            <div className='cover-overlay'>
+                <h1>{title}</h1>
+                <p>{description}</p>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default Cover;
