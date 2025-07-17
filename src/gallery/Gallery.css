@@ -1,19 +1,13 @@
 
-.gallery-row {
+.gallery {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.gallery-row >* {
-  flex-basis: 100%;
+.gallery > * {
   flex: 1;
+  flex-basis: 300px;
   position: relative;
   overflow: hidden;
-}
-
-@media only screen and (max-width: 640px) {
-
-  .gallery-row {
-      display: block;
-  }
 }
