@@ -1,5 +1,6 @@
 import React from 'react';
 import './Cover.css';
+import { Link } from 'react-router-dom';
 
 interface CoverProps {
     image: string;
@@ -9,13 +10,13 @@ interface CoverProps {
 
 const Cover: React.FC<CoverProps> = ({ image, title, description }) => {
     return (
-        <div className='cover'>
+        <Link to={`/details`} className='cover'>
             <img src={image} alt='' />
             <div className='cover-overlay'>
                 <h1>{title}</h1>
                 <p>{description}</p>
             </div>
-        </div>
+        </Link>
     )
 }
 

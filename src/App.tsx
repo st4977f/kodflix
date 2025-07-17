@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Gallery from './gallery/Gallery';
+import Details from './details/Details';
 
 function App() {
   return (
-    <div className="App">
-      <Gallery />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Gallery />} />
+          <Route path="/details" element={<Details />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
