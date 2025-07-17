@@ -14,16 +14,19 @@ const Gallery: React.FC = () => {
       <div className="gallery-row">
         <Cover
           image={Daredevil}
+          id="daredevil"
           title="Daredevil"
           description="Action | Crime | Drama"
         />
         <Cover
           image={MyNameIsEarl}
+          id="my-name-is-earl"
           title="My Name Is Earl"
           description="Comedy"
         />
         <Cover
           image={Ozark}
+          id="ozark"
           title="Ozark"
           description="Crime | Drama | Thriller"
         />
@@ -31,16 +34,19 @@ const Gallery: React.FC = () => {
       <div className="gallery-row">
         <Cover
           image={SweetHome}
+          id="sweet-home"
           title="Sweet Home"
           description="Action | Drama | Horror"
         />
         <Cover
           image={TheMentalist}
+          id="the-mentalist"
           title="The Mentalist"
           description="Crime | Drama | Mystery"
         />
         <Cover
           image={Westworld}
+          id="westworld"
           title="Westworld"
           description="Drama | Mystery | Sci-Fi"
         />

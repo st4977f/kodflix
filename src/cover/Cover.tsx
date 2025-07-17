@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 interface CoverProps {
     image: string;
+    id: string;
     title: string;
     description: string;
 }
 
-const Cover: React.FC<CoverProps> = ({ image, title, description }) => {
+const Cover: React.FC<CoverProps> = ({ image, id, title, description }) => {
     return (
-        <Link to={`/details`} className='cover'>
-            <img src={image} alt='' />
+        <Link to={`/${id}`} className='cover'>
+            <img src={image} id={id} alt='' />
             <div className='cover-overlay'>
                 <h1>{title}</h1>
                 <p>{description}</p>
