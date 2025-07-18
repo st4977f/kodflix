@@ -7,7 +7,19 @@ const Details: React.FC = () => {
   const { showId } = useParams<{ showId: string }>();
   const [show] = useState(() => getShows().find((s) => s.id === showId));
 
-  return show ? <h1>{show.title}</h1> : <Navigate to="/not-found" replace />;
+  return show ? (
+    <div className="details">
+      <h1>{show.title}</h1>
+      <div className="details-content">
+        <h3 className="details-content-synopsis">{show.synopsis}</h3>
+        <div className="details-content-cover">
+          <img src={show.image} />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <Navigate to="/not-found" replace />
+  );
 };
 
 export default Details;

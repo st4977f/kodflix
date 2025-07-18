@@ -1,0 +1,23 @@
+.details-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.details-content-synopsis {
+    padding-right: 30px;
+}
+
+.details-content-cover img {
+    max-width: 300px;
+}
+
+@media (max-width: 640px) {
+    .details-content {
+        display: block;
+    }
+
+    .details-content-cover img {
+        max-width: 100%;
+    }
+}
