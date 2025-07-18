@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Gallery from './gallery/Gallery';
 import Details from './details/Details';
+import NotFound from './not-found/NotFound';
 
 class App extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class App extends React.Component {
         <div className="App">
           <Routes>
             <Route path="/" element={<Gallery />} />
+            <Route path="/not-found" element={<NotFound />} />
             <Route path="/:showId" element={<Details />} />
           </Routes>
         </div>
