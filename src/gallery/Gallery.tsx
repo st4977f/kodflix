@@ -1,22 +1,24 @@
 import React from 'react';
 import './Gallery.css';
-import Cover from '../cover/Cover';
-import getGallery from './gallery-get';
+import Cover from './cover/Cover';
+import getShows from '../shows';
 
-const Gallery: React.FC = () => {
-  return (
-    <div className="gallery">
-      {getGallery().map(cover => (
-        <Cover
-          image={cover.image}
-          id={cover.id}
-          title={cover.title}
-          description={cover.description}
-          key={cover.id}
-        />
-      ))}
-    </div>
-  );
-};
+class Gallery extends React.Component {
+  render() {
+    return (
+      <div className="gallery">
+        {getShows().map((show) => (
+          <Cover
+            image={show.image}
+            id={show.id}
+            title={show.title}
+            description={show.description}
+            key={show.id}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 
 export default Gallery;

@@ -1,11 +1,11 @@
-import Daredevil from '../cover/images/daredevil-cover.jpg';
-import MyNameIsEarl from '../cover/images/my-name-is-earl.jpg';
-import Ozark from '../cover/images/ozark.jpg';
-import SweetHome from '../cover/images/sweet-home.jpg';
-import TheMentalist from '../cover/images/the-mentalist.jpg';
-import Westworld from '../cover/images/westworld.jpg';
+import Daredevil from './gallery/cover/images/daredevil-cover.jpg';
+import MyNameIsEarl from './gallery/cover/images/my-name-is-earl.jpg';
+import Ozark from './gallery/cover/images/ozark.jpg';
+import SweetHome from './gallery/cover/images/sweet-home.jpg';
+import TheMentalist from './gallery/cover/images/the-mentalist.jpg';
+import Westworld from './gallery/cover/images/westworld.jpg';
 
-export default function getGallery() {
+export default function getShows() {
   return [
     {
       id: 'daredevil',

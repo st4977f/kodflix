@@ -1,27 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import getShows from '../shows';
 import './Details.css';
 
-interface DetailsState {
-  message: string;
-}
+const Details: React.FC = () => {
+  const { showId } = useParams<{ showId: string }>();
+  const show = getShows().find((s) => s.id === showId);
 
-class Details extends Component<{}, DetailsState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      message: 'This is the details page for a specific TV show.',
-    };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ message: 'Coming Soon!' });
-    }, 3000);
-  }
-
-  render() {
-    return <h1>{this.state.message}</h1>;
-  }
-}
+  return <h1>{show?.title}</h1>;
+};
 
 export default Details;
