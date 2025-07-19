@@ -3,7 +3,6 @@ import './Cover.css';
 import { Link } from 'react-router-dom';
 
 interface CoverProps {
-    image: string;
     id: string;
     title: string;
     description: string;
@@ -11,10 +10,10 @@ interface CoverProps {
 
 class Cover extends React.Component<CoverProps> {
     render() {
-        const { image, id, title, description } = this.props;
+        const { id, title, description } = this.props;
         return (
             <Link to={`/${id}`} className='cover'>
-                <img src={image} id={id} alt='' />
+                <img src={require (`../../common/images/${id}.jpg`)} id={id} alt='' />
                 <div className='cover-overlay'>
                     <h1>{title}</h1>
                     <p>{description}</p>
