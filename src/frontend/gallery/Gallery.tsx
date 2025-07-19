@@ -1,6 +1,7 @@
 import React from 'react';
 import './Gallery.css';
 import Cover from './cover/Cover';
+import Loading from '../common/loading/loading';
 
 interface Show {
   id: string;
@@ -32,14 +33,18 @@ class Gallery extends React.Component<{}, GalleryState> {
   render() {
     return (
       <div className="gallery">
-        {this.state.shows.map((show) => (
-          <Cover
-            key={show.id}
-            id={show.id}
-            title={show.title}
-            description={show.description}
-          />
-        ))}
+        {this.state.shows.length ? (
+          this.state.shows.map((show) => (
+            <Cover
+              key={show.id}
+              id={show.id}
+              title={show.title}
+              description={show.description}
+            />
+          ))
+        ) : (
+          <Loading />
+        )}
       </div>
     );
   }
