@@ -1,24 +1,37 @@
 import express from 'express';
-import getShows from './shows';
 import path from 'path';
 
 const app = express();
 const port = process.env.PORT || 3001;
+const db = require('./db');
 
 // Absolute path to React build folder
 const buildPath = path.join(__dirname, '../../build');
 
-// Serve static files from React build
-app.use(express.static(buildPath));
+// --- API ROUTES ---
+import { Db } from 'mongodb';
 
-// API routes (MUST be before catch-all)
-app.get('/rest/shows', (req, res) => {
-  res.json(getShows());
+db.connect().then((dbo: Db) => {
+  app.get('/rest/shows', (_req: express.Request, res: express.Response) => {
+    dbo.collection('shows').find({}).toArray().then((results: any[]) => {
+      res.send(results);
+    }).catch((err: any) => {
+      res.status(500).send({ error: err.message });
+    });
+  });
 });
 
-// Catch-all route for client-side routing
+app.get('/rest/shows', (_req, res) => {
+  res.status(503).send({ error: 'Database not connected' });
+});
+
+// --- STATIC FILES ---
+app.use(express.static(buildPath));
+
+// --- CATCH-ALL FOR CLIENT ROUTING ---
 app.get(/^\/(?!rest\/).*$/, function (req, res) {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
