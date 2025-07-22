@@ -1,11 +1,15 @@
 const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017/kodflix';
+const url = 'mongodb://127.0.0.1:27018/kodflix';
 
-MongoClient.connect(url, function(err, client) {
-  if (err) {
+async function testConnection() {
+  try {
+    const client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    console.log('Connected successfully to server');
+    await client.close();
+  } catch (err) {
     console.error('MongoDB connection error:', err);
     process.exit(1);
   }
-  console.log('Connected successfully to server');
-  client.close();
-});
+}
+
+testConnection();

@@ -1,30 +1,20 @@
-export {}; // <-- Add this line
+export {}; 
 
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const db = {
-  host: 'localhost',
-  port: '27017',
-  name: 'kodflix'
-};
+const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;
+const dbName = url?.substring(url.lastIndexOf('/') + 1);
 
-const url = `mongodb://${db.host}:${db.port}/${db.name}`;
-module.exports = { connect };
-
-function connect() {
-  return new Promise((resolve, reject) => {
-    MongoClient.connect(
-      url,
-      function (err, client) {
-        if (err) {
-          console.error('MongoDB connection error:', err);
-          reject(err);
-          return;
-        }
-        console.log('Connected successfully to server');
-        const dbo = client.db(db.name);
-        resolve(dbo);
-      }
-    );
-  });
+async function connect() {
+  try {
+    const client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    console.log('Connected successfully to server');
+    return client.db(dbName);
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    throw err;
+  }
 }
+
+module.exports = { connect };

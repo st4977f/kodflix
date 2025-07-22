@@ -10,6 +10,7 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "mongodb": "^6.17.0",
     "nodemon": "^3.1.10",
@@ -22,9 +23,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm-run-all -s build _start-backend",
+    "start": "NODE_ENV=production npm-run-all -s build _start-backend",
     "start-dev": "npm-run-all -p _start-db _start-frontend _start-backend",
-    "_start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\"",
+    "_start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
     "_start-frontend": "react-scripts start",
     "_start-backend": "nodemon --exec tsx src/backend/app.ts",
     "build": "react-scripts build",

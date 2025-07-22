@@ -16,7 +16,7 @@ function DetailsContent({ show }: { show: Show }) {
       <div className='details-content'>
         <h3 className='details-content-synopsis'>{show.synopsis}</h3>
         <div className='details-content-cover'>
-          <img src={`../../public/common/images/${show.id}.jpg`} alt={show.title} />
+          <img src={`/common/images/${show.id}.jpg`} alt={show.title} />
         </div>
       </div>
     </div>
