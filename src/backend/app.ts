@@ -1,12 +1,12 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3001;
+app.use(cors());
+app.listen(port, () => console.log(`Listening on port ${port}`));
+
 const db = require('./db');
-
-
 import { Db } from 'mongodb';
 
 db.connect()
@@ -20,9 +20,6 @@ db.connect()
   .catch((err: any) => {
     console.error('Failed to connect to MongoDB:', err);
   });
-
-app.use(cors());
-app.listen(port, () => console.log(`Listening on port ${port}`));
 
 
 /*
