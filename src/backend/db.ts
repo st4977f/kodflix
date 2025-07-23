@@ -1,7 +1,7 @@
 export {}; 
 
 const { MongoClient } = require('mongodb');
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;
 // const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;

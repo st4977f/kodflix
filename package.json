@@ -11,6 +11,7 @@
     "@types/jest": "^27.5.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "mongodb": "^6.17.0",
@@ -24,6 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^4.17.23",
     "@types/node": "^24.0.14",
     "cross-env": "^7.0.3",
@@ -33,9 +35,13 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production npm-run-all -s build _start-backend",
     "start-dev": "npm-run-all -p _start-db _start-frontend _start-backend",
-    "_start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
-    "_start-frontend": "react-scripts start",
-    "_start-backend": "nodemon --exec tsx src/backend/app.ts",
+
+    "start-frontend": "react-scripts start",
+    "start-backend": "npm-run-all -p start-only-db start-only-backend",
+
+    "start-only-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
+    "start-only-backend": "nodemon --exec tsx src/backend/app.ts",
+   
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

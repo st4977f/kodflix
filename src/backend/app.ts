@@ -1,11 +1,11 @@
 import express from 'express';
 import path from 'path';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3001;
 const db = require('./db');
 
-const buildPath = path.join(__dirname, '../../build');
 
 import { Db } from 'mongodb';
 
@@ -21,11 +21,25 @@ db.connect()
     console.error('Failed to connect to MongoDB:', err);
   });
 
-app.use(express.static(buildPath));
+app.use(cors());
+app.listen(port, () => console.log(`Listening on port ${port}`));
+
+
+/*
+
+Backend serves the frontend build files // Monorepo
+
+const buildPath = path.join(__dirname, '../../build');
+app.use(express.static(buildPath)); */
+
+
+/*
+
+// Catch-all route to serve the frontend application // Monorepo
 
 app.get(/^\/(?!rest\/).*$/, (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
-});
+});*/
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+
 
