@@ -4,6 +4,7 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;
+// const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;
 const dbName = url?.substring(url.lastIndexOf('/') + 1);
 
 async function connect() {
