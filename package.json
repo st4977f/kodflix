@@ -33,14 +33,13 @@
     "tsx": "^4.20.3"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production npm-run-all -s build _start-backend",
-    "start-dev": "npm-run-all -p _start-db _start-frontend _start-backend",
+    "start": "cross-env NODE_ENV=production npm-run-all -s build start-backend",
+    "start-dev": "npm-run-all -p start-db start-frontend start-backend",
 
+    "start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
+    
     "start-frontend": "react-scripts start",
-    "start-backend": "npm-run-all -p start-only-db start-only-backend",
-
-    "start-only-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
-    "start-only-backend": "nodemon --exec tsx src/backend/app.ts",
+    "start-backend": "nodemon --exec tsx src/backend/app.ts",
    
     "build": "react-scripts build",
     "test": "react-scripts test",
