@@ -33,11 +33,8 @@
     "tsx": "^4.20.3"
   },
   "scripts": {
-    "start": "NODE_ENV=production npm-run-all -s build start-backend",
-    "start-dev": "npm-run-all -p start-db start-frontend start-backend",
-
-    "start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
-    
+    "start": "npm-run-all -s build start-backend",
+    "start-db": "mongod",
     "start-frontend": "react-scripts start",
     "start-backend": "nodemon --exec tsx src/backend/app.ts",
    
