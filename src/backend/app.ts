@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = Number(process.env.PORT) || 3001;
 app.use(cors());
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 const db = require('./db');
 import { Db } from 'mongodb';
