@@ -4,21 +4,24 @@ import cors from 'cors';
 const app = express();
 const port = Number(process.env.PORT) || 3001;
 app.use(cors());
-app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
 
 const db = require('./db');
 import { Db } from 'mongodb';
 
 db.connect()
   .then((dbo: Db) => {
-    app.get('/rest/shows', (_req: express.Request, res: express.Response) => {
+    app.get('/rest/shows', (_req, res) => {
       dbo.collection('shows').find({}).toArray()
-        .then((results: any[]) => res.send(results))
-        .catch((err: any) => res.status(500).send({ error: err.message }));
+        .then(results => res.send(results))
+        .catch(err => res.status(500).send({ error: err.message }));
     });
+
+    // Start server ONLY after DB is ready
+    app.listen(port, '0.0.0.0', () => console.log(`Listening on port ${port}`));
   })
   .catch((err: any) => {
     console.error('Failed to connect to MongoDB:', err);
+    process.exit(1); // Exit if DB connection fails
   });
 
 
