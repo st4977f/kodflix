@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all -p start-db start-backend",
-    "start-db": "mongod --dbpath \"C:\\Program Files\\MongoDB\\Server\\8.0\\data\" --port 27017",
+    "start": "npm-run-all -s build _start-backend",
+    "start-db": "mongod",
     "start-backend": "nodemon --exec tsx app.ts",
     "dev": "nodemon --exec tsx app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
