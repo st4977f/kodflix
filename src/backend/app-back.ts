@@ -1,13 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 
 const app = express();
 const port = process.env.PORT || 3001;
 app.use(cors());
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-const db = require('./db');
+const db = require('./db-back');
 import { Db } from 'mongodb';
 
 db.connect()
@@ -23,18 +22,21 @@ db.connect()
   });
 
 
+/*
 
-// Serve static files from the React app
+Backend serves the frontend build files // Monorepo
 
 const buildPath = path.join(__dirname, '../../build');
-app.use(express.static(buildPath)); 
+app.use(express.static(buildPath)); */
 
-// Serve index.html for all non-API routes
+
+/*
+
+// Catch-all route to serve the frontend application // Monorepo
 
 app.get(/^\/(?!rest\/).*$/, (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
-});
-
+});*/
 
 
 

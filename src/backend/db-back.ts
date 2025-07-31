@@ -1,16 +1,12 @@
 export {}; 
 
 const { MongoClient } = require('mongodb');
-const path = require('path');
 
-// Always load .env
+const path = require('path');
 const dotenvPath = path.resolve(process.cwd(), '.env');
 require('dotenv').config({ path: dotenvPath });
 
-const url =
-  process.env.NODE_ENV === 'production'
-    ? process.env.DB_URL_PRD
-    : process.env.DB_URL_DEV;
+const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL_PRD : process.env.DB_URL_DEV;
 
 if (!url) {
   throw new Error(
@@ -18,7 +14,7 @@ if (!url) {
   );
 }
 
-const dbName = url.substring(url.lastIndexOf('/') + 1);
+const dbName = url?.substring(url.lastIndexOf('/') + 1);
 
 async function connect() {
   try {
