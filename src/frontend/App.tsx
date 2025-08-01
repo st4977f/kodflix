@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import ReactGA from 'react-ga4';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import Menu from './common/menu/Menu';
 import Gallery from './gallery/Gallery';
 import Details from './details/Details';
 import NotFound from './not-found/NotFound';
@@ -23,6 +24,7 @@ function App() {
     <>
       <GAListener />
       <div className="App">
+        <Menu />
         <Routes>
           <Route path="/" element={<Gallery />} />
           <Route path="/not-found" element={<NotFound />} />
