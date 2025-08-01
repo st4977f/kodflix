@@ -3,7 +3,6 @@ export {};
 const { MongoClient } = require('mongodb');
 const path = require('path');
 
-// Always load .env
 const dotenvPath = path.resolve(process.cwd(), '.env');
 require('dotenv').config({ path: dotenvPath });
 
