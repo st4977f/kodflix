@@ -2,18 +2,33 @@ import MenuIcon from './Menu.svg';
 import './Menu.css';
 import React from 'react';
 
-export default class Menu extends React.Component {
+type MenuProps = {};
+type MenuState = { isMenuVisible: boolean };
 
-    openMenu(){
-        console.log('Menu opened');
-    }
+export default class Menu extends React.Component<MenuProps, MenuState> {
+  constructor(props: MenuProps) {
+    super(props);
+    this.state = { isMenuVisible: false };
+    this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  toggleMenu() {
+    this.setState({ isMenuVisible: !this.state.isMenuVisible });
+  }
 
   render() {
     return (
-      <div className="menu">
-        <button className='menu-open' onClick={() => this.openMenu()}>
-            <img src={MenuIcon} alt="Menu" />
+      <div className={'menu ' + (this.state.isMenuVisible ? 'is-visible' : '')}>
+        <button className="menu-toggle" onClick={() => this.toggleMenu()}>
+          <img src={MenuIcon} alt="Open menu" />
         </button>
+        <div className="menu-panel">
+          <div className="menu-panel-box">Hello menu!</div>
+          <div
+            className="menu-panel-overlay"
+            onClick={() => this.toggleMenu()}
+          />
+        </div>
       </div>
     );
   }
