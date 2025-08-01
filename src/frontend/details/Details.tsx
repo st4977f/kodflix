@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Details.css';
 import Loading from '../common/loading/loading';
 
@@ -23,34 +23,43 @@ function DetailsContent({ show }: { show: Show }) {
   );
 }
 
-export default class Details extends React.Component<{}, { show: Show | null; loading: boolean }> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      show: null,
-      loading: true,
-    };
-  }
+const Details: React.FC = () => {
+  const { showId } = useParams<{ showId: string }>();
+  const navigate = useNavigate();
+  const [show, setShow] = useState<Show | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  componentDidMount() {
-    const showId = window.location.pathname.split('/').pop();
-    fetch('/rest/shows')
-      .then((response) => response.json())
-      .then((shows: Show[]) => {
-        const foundShow = shows.find((show) => show.id === showId);
-        this.setState({ show: foundShow || null, loading: false });
+  useEffect(() => {
+    if (!showId) {
+      navigate('/not-found', { replace: true });
+      return;
+    }
+    fetch(`/rest/shows/${showId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Show not found');
+        }
+        return response.json();
+      })
+      .then((show: Show) => {
+        setShow(show);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching show details:', error);
+        setShow(null);
+        setLoading(false);
+        navigate('/not-found', { replace: true });
       });
-  }
+  }, [showId, navigate]);
 
-  render() {
-    const { show, loading } = this.state;
-    if (loading) {
-      return <Loading />;
-    }
-    if (show) {
-      return show.id ? <DetailsContent show={show} /> : <Loading />;
-    } else {
-      return <Navigate to='/not-found' replace />;
-    }
+  if (loading) {
+    return <Loading />;
   }
-}
+  if (show) {
+    return <DetailsContent show={show} />;
+  }
+  return null;
+};
+
+export default Details;

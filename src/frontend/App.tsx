@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import ReactGA from 'react-ga';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import ReactGA from 'react-ga4';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Gallery from './gallery/Gallery';
 import Details from './details/Details';
 import NotFound from './not-found/NotFound';
@@ -12,7 +12,7 @@ function GAListener() {
   const location = useLocation();
 
   useEffect(() => {
-    ReactGA.pageview(location.pathname + location.search + location.hash);
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search + location.hash });
   }, [location]);
 
   return null;
@@ -20,16 +20,17 @@ function GAListener() {
 
 function App() {
   return (
-    <Router>
+    <>
       <GAListener />
       <div className="App">
         <Routes>
           <Route path="/" element={<Gallery />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/:showId" element={<Details />} />
+          <Route path="*" element={<NotFound />} /> {/* Catch-all for unknown routes */}
         </Routes>
       </div>
-    </Router>
+    </>
   );
 }
 
