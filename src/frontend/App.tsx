@@ -6,6 +6,7 @@ import Menu from './common/menu/Menu';
 import Gallery from './gallery/Gallery';
 import Details from './details/Details';
 import NotFound from './not-found/NotFound';
+import ManageTvShows from './manage-tv-shows/ManageTvShows';
 
 ReactGA.initialize('G-S0QWF7JB8N');
 
@@ -13,7 +14,10 @@ function GAListener() {
   const location = useLocation();
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search + location.hash });
+    ReactGA.send({
+      hitType: 'pageview',
+      page: location.pathname + location.search + location.hash,
+    });
   }, [location]);
 
   return null;
@@ -27,9 +31,9 @@ function App() {
         <Menu />
         <Routes>
           <Route path="/" element={<Gallery />} />
+          <Route path="/manage-tv-shows" element={<ManageTvShows />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/:showId" element={<Details />} />
-          <Route path="*" element={<NotFound />} /> {/* Catch-all for unknown routes */}
         </Routes>
       </div>
     </>

@@ -1,0 +1,51 @@
+.menu-panel {
+    transition: margin-left 0.5s ease;
+    height: 100%;
+    margin-left: -300px;
+}
+
+.menu.is-visible .menu-panel {
+    margin-left: 0;
+}
+
+.menu-panel-box {
+    width: 300px;
+    height: 100%;
+    background-color: #3c424e;
+    padding-top: 64px;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-panel-overlay {
+    display: none;
+    background-color: black;
+    opacity: .7;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.menu.is-visible .menu-panel-overlay {
+    display: block;
+}
+
+.menu-panel-box-link {
+    transition: background-color 0.5s ease;
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.menu-panel-box-link:hover {
+    background-color: #373c47;
+}
+
+.menu-panel-box-link img {
+    width: 48px;
+    margin-right: 15px;
+}
