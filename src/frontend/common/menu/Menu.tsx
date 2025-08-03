@@ -1,10 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MenuLink from './menu-link/MenuLink';
 import menuIcon from './Menu.svg';
-import tvIcon from './tv.svg';
 import './Menu.css';
-
-
 
 type MenuProps = {};
 type MenuState = { isMenuVisible: boolean };
@@ -28,18 +25,16 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
         </button>
         <div className="menu-panel">
           <div className="menu-panel-box">
-            <Link
-              to="/manage/tv-shows"
-              className="menu-panel-box-link"
+            <MenuLink
+              text="Home" link="/"
+              icon="home"
               onClick={() => this.toggleMenu()}
-            >
-              <div>
-                <img src={tvIcon} alt="Manage TV shows" />
-              </div>
-              <div>
-                <h3>Manage TV Shows</h3>
-              </div>
-            </Link>
+            />
+            <MenuLink
+              text="Manage TV Shows" link="/manage/tv-shows"
+              icon="tv"
+              onClick={() => this.toggleMenu()}
+            />
           </div>
           <div
             className="menu-panel-overlay"
