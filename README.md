@@ -35,7 +35,7 @@ Kodflix is a React-based web application for browsing and viewing TV shows, orig
 ### Installation
 
 ```sh
-git clone https://github.com/your-username/kodflix.git
+git clone https://github.com/st4977f/kodflix.git
 cd kodflix
 npm install
 ```
