@@ -9,7 +9,7 @@ html, body {
   height: 100%;
   overflow-y: auto;
   text-align: center;
-  background-color: #2f333d;
+  background-color: black;
   color: white;
 }
 
@@ -26,4 +26,8 @@ code {
 a {
   color: white;
   text-decoration: none;
+}
+
+a,button {
+  cursor: pointer;
 }

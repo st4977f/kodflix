@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import ReactGA from 'react-ga4';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import Play from './play/Play';
 import Menu from './common/menu/Menu';
 import Gallery from './gallery/Gallery';
 import Details from './details/Details';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/manage-tv-shows" element={<ManageTvShows />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/:showId" element={<Details />} />
+          <Route path="/play/:showId" element={<Play />} />
         </Routes>
       </div>
     </>

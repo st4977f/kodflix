@@ -1,6 +1,6 @@
 import React from 'react';
 import MenuLink from './menu-link/MenuLink';
-import menuIcon from './Menu.svg';
+import menuIcon from './menu.svg';
 import './Menu.css';
 
 type MenuProps = {};

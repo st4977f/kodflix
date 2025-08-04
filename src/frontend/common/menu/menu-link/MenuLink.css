@@ -3,11 +3,10 @@
     display: flex;
     padding: 10px 20px;
     align-items: center;
-    cursor: pointer;
 }
 
 .menu-link:hover {
-    background-color: #373c47;
+    background-color: #242020;
 }
 
 .menu-link img {
