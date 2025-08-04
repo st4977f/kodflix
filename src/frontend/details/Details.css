@@ -1,23 +1,29 @@
-.details-content {
+.details {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 0 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.details-content-synopsis {
-    padding-right: 30px;
+.details-content {
+    background: linear-gradient(to bottom, black, transparent);
+    padding: 30px 120px;
+    height: 100%;
 }
 
-.details-content-cover img {
-    max-width: 300px;
+.details-content-title {
+    font-size: 3rem;
 }
+
 
 @media (max-width: 640px) {
     .details-content {
-        display: block;
+        padding: 45px 30px;
     }
 
-    .details-content-cover img {
-        max-width: 100%;
+    .details-content-title {
+        padding-bottom: 0;
     }
 }

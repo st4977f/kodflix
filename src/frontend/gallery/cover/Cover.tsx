@@ -14,12 +14,11 @@ class Cover extends React.Component<CoverProps> {
     return (
       <Link to={`/${id}`} className="cover">
         <img
-          src={`/common/images/${id}.jpg`}
-          id={id}
-          alt=""
+          src={require(`../../common/images/covers/${id}.jpg`)}
+          alt={title}
         />
         <div className="cover-overlay">
-          <h1>{title}</h1>
+          <h1>{title}</h1>  
           <p>{description}</p>
         </div>
       </Link>
