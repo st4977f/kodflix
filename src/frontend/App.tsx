@@ -14,10 +14,7 @@ function GAListener() {
   const location = useLocation();
 
   useEffect(() => {
-    ReactGA.send({
-      hitType: 'pageview',
-      page: location.pathname + location.search + location.hash,
-    });
+    ReactGA.send({ hitType: 'pageview', page: location.pathname });
   }, [location]);
 
   return null;
