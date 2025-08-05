@@ -1,13 +1,15 @@
-import { Link, useParams } from 'react-router-dom';
-import Loading from '../common/loading/loading';
-import './Play.css';
 import React, { useState, useEffect } from 'react';
-
+import { Link, useParams } from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import Loading from '../common/loading/loading';
+import fetchData from '../common/fetch'; 
+import './Play.css';
 
 interface Show {
     id: string;
     title?: string;
     description?: string;
+    trailerId?: string; 
 }
 
 export default function Play() {
@@ -17,8 +19,7 @@ export default function Play() {
 
     useEffect(() => {
         if (showId) {
-            fetch(`/rest/shows/${showId}`)
-                .then(response => response.json())
+            fetchData(`/rest/shows/${showId}`)
                 .then(show => {
                     setShow(show);
                     setLoading(false);
@@ -42,9 +43,19 @@ export default function Play() {
 }
 
 function PlayContent({ show }: { show: Show }) {
+    const videoId = show.trailerId || show.id;
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+    
     return (
         <div className="play">
-            <iframe width="100%" height="100%" title='Watch!' src={`https://www.youtube.com/embed/${show.id}?autoplay=1&showinfo=0`}></iframe>
+            <ReactPlayer
+                src={videoUrl}
+                playing={true}
+                controls={true}
+                width="100%"
+                height="100%"
+                style={{ position: 'absolute', top: 0, left: 0 }}
+            />
         </div>
     )
 }

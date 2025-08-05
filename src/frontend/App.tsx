@@ -32,7 +32,7 @@ function App() {
           <Route path="/manage-tv-shows" element={<ManageTvShows />} />
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/:showId" element={<Details />} />
-          <Route path="/play/:showId" element={<Play />} />
+          <Route path="/:showId/play" element={<Play />} />
         </Routes>
       </div>
     </>

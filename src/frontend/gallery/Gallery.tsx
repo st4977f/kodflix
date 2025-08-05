@@ -2,6 +2,7 @@ import React from 'react';
 import './Gallery.css';
 import Cover from './cover/Cover';
 import Loading from '../common/loading/loading';
+import fetchData from '../common/fetch';
 
 interface Show {
   id: string;
@@ -23,8 +24,7 @@ class Gallery extends React.Component<{}, GalleryState> {
   }
 
   componentDidMount() {
-    fetch('/rest/shows')
-      .then((response) => response.json())
+    fetchData('/rest/shows')
       .then((shows: Show[]) => {
         this.setState({ shows });
       });

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Details.css';
+import { Link } from 'react-router-dom';
 import Loading from '../common/loading/loading';
+import fetchData from '../common/fetch';
+import './Details.css';
 
 interface Show {
   id: string;
@@ -20,6 +22,9 @@ function DetailsContent({ show }: { show: Show }) {
       <div className="details-content">
         <h1 className="details-content-title">{show.title}</h1>
         <h3 className="details-content-synopsis">{show.synopsis}</h3>
+        <div>
+          <Link to={`/${show.id}/play`} className="details-play" />
+        </div>
       </div>
     </div>
   );
@@ -36,15 +41,14 @@ const Details: React.FC = () => {
       navigate('/not-found', { replace: true });
       return;
     }
-    fetch(`/rest/shows/${showId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Show not found');
-        }
-        return response.json();
-      })
+    fetchData(`/rest/shows/${showId}`)
       .then((show: Show) => {
         setShow(show);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching show details:', error);
+        setShow(null);
         setLoading(false);
       })
       .catch((error) => {
