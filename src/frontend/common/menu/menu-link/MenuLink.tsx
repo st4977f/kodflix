@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './MenuLink.css';
 
 interface MenuLinkProps {
-    icon: string;
+    icon: string | React.ReactNode;
     text: string;
     link: string;
     onClick?: React.MouseEventHandler<HTMLAnchorElement>;

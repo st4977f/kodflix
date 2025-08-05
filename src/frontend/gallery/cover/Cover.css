@@ -19,3 +19,13 @@
 .cover:hover .cover-overlay {
     bottom: 0;
 }
+
+.genre {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 4px 12px;
+    margin: 2px 4px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}

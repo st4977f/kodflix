@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 interface CoverProps {
   id: string;
   title: string;
-  description: string;
+  description: string | string[];
 }
 
 class Cover extends React.Component<CoverProps> {
   render() {
     const { id, title, description } = this.props;
+    const genres = Array.isArray(description) ? description : description.split(' | ');
+
     return (
       <Link to={`/${id}`} className="cover">
         <img
@@ -19,7 +21,9 @@ class Cover extends React.Component<CoverProps> {
         />
         <div className="cover-overlay">
           <h1>{title}</h1>  
-          <p>{description}</p>
+          <p>{genres.map((genre, index) => (
+            <span key={index} className="genre">{genre}</span>
+          ))}</p>
         </div>
       </Link>
     );
