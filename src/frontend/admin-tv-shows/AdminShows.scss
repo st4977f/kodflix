@@ -1,0 +1,21 @@
+
+.go-to-list-link {
+  display: inline-block;
+  background: #4a90e2;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  margin: 24px auto 24px auto;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  max-height: 48px;
+  line-height: 24px;
+}
+.go-to-list-link:hover {
+  background: #357ab8;
+}

@@ -4,7 +4,9 @@ import path from 'path';
 
 const app = express();
 const port = process.env.PORT || 3001;
+
 app.use(cors());
+app.use(express.json());
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 const db = require('./db');
@@ -16,6 +18,14 @@ db.connect()
     app.get('/rest/shows', (_req: express.Request, res: express.Response) => {
       dbo.collection('shows').find({}).toArray()
         .then((results: any[]) => res.send(results))
+        .catch((err: any) => res.status(500).send({ error: err.message }));
+    });
+
+    // Add new show
+    app.post('/api/shows', (req: express.Request, res: express.Response) => {
+      const newShow = req.body;
+      dbo.collection('shows').insertOne(newShow)
+        .then(() => res.status(201).json({ message: 'Show added!' }))
         .catch((err: any) => res.status(500).send({ error: err.message }));
     });
   })
@@ -50,7 +60,3 @@ app.use(express.static(buildPath));
 app.get(/^\/(?!rest\/).*$/, (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-
-
-
-
