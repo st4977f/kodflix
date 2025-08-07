@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/loading';
 import './AdminShowsList.css';
 
@@ -13,10 +14,7 @@ interface AdminShowsListState {
   shows: Show[] | null;
 }
 
-export default class AdminShowsList extends React.Component<
-  {},
-  AdminShowsListState
-> {
+export default class AdminShowsList extends Component<{}, AdminShowsListState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -31,15 +29,16 @@ export default class AdminShowsList extends React.Component<
   }
 
   render() {
-    const { shows } = this.state;
+    let { shows } = this.state;
 
     if (!shows) {
-      return <Loading />;
+      return <div><Loading /></div>;
     }
 
     return (
       <div>
         <div className="admin-shows-list">List of Shows</div>
+        <Link to="../add" className="add-shows-link">Add Shows</Link>
         <div className="admin-shows-list-container">
           {shows.map((show) => (
             <InfoPanel
