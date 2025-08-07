@@ -1,25 +1,21 @@
-import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 import AdminShowsAdd from './AdminShowsAdd/AdminShowsAdd';
 import AdminShowsEdit from './AdminShowsEdit/AdminShowsEdit';
 import AdminShowsList from './AdminShowsList/AdminShowsList';
 import './AdminShows.css';
 
-interface AdminShowsProps {
-  match: {
-    path: string;
-  };
-}
+export default function AdminShows() {
+  const location = useLocation();
+  const isOnList = location.pathname.endsWith('/list');
 
-export default function AdminShows({ match }: AdminShowsProps) {
   return (
     <>
       <Routes>
-        <Route path={`${match.path}/add`} element={<AdminShowsAdd />} />
-        <Route path={`${match.path}/edit/:id`} element={<AdminShowsEdit />} />
-        <Route path={`${match.path}/list`} element={<AdminShowsList />} />
+        <Route path="add" element={<AdminShowsAdd />} />
+        <Route path="edit/:id" element={<AdminShowsEdit />} />
+        <Route path="list" element={<AdminShowsList />} />
       </Routes>
-      <Link to={`${match.path}/list`}>Go to List</Link>
+      {!isOnList && <Link to="list">Go to List</Link>}
     </>
   );
 }

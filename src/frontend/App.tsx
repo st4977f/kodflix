@@ -34,9 +34,7 @@ function App() {
           <Route path="/not-found" element={<NotFound />} />
           <Route path="/:showId" element={<Details />} />
           <Route path="/:showId/play" element={<Play />} />
-          <Route path="/admin/tv-shows" element={<AdminShows match={{
-            path: ''
-          }} />} />
+          <Route path="/admin/tv-shows/*" element={<AdminShows />} />
         </Routes>
       </div>
     </>
