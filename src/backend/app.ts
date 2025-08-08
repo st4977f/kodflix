@@ -28,6 +28,16 @@ db.connect()
         .then(() => res.status(201).json({ message: 'Show added!' }))
         .catch((err: any) => res.status(500).send({ error: err.message }));
     });
+
+    // Edit existing show 
+
+    app.put('/api/shows/:id', (req: express.Request, res: express.Response) => {
+      const updatedShow = req.body;
+      const showId = req.params.id;
+      dbo.collection('shows').updateOne({ id: showId }, { $set: updatedShow })
+        .then(() => res.status(200).json({ message: 'Show updated!' }))
+        .catch((err: any) => res.status(500).send({ error: err.message }));
+    });
   })
   .catch((err: any) => {
     console.error('Failed to connect to MongoDB:', err);

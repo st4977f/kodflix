@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../../common/loading/loading';
-import './AdminShowsList.css';
+import './AdminShowsList.scss';
 
 interface Show {
   id: string;
@@ -60,6 +60,8 @@ interface InfoPanelProps {
   title: string;
   description: string[];
   synopsis: string;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 function InfoPanel({
@@ -67,7 +69,10 @@ function InfoPanel({
   title,
   description,
   synopsis,
+  onEdit,
+  onDelete
 }: InfoPanelProps) {
+  const navigate = useNavigate();
   return (
     <div className="admin-show-panel">
       <div className="admin-panel-image">
@@ -84,6 +89,10 @@ function InfoPanel({
           ))}
         </div>
         <p className="admin-panel-synopsis">{synopsis}</p>
+        <div className="admin-panel-actions">
+          <button className="edit-btn" onClick={() => navigate(`../edit/${id}`)}>Edit</button>
+          <button className="delete-btn" onClick={onDelete}>Delete</button>
+        </div>
       </div>
     </div>
   );
