@@ -28,6 +28,25 @@ export default class AdminShowsList extends Component<{}, AdminShowsListState> {
       .then((shows: Show[]) => this.setState({ shows }));
   }
 
+  handleDelete = async (id: string, callback?: () => void) => {
+    if (!window.confirm('Are you sure you want to delete this show?')) return;
+    try {
+      const res = await fetch(`/api/shows/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        this.setState((prevState) => ({
+          shows: prevState.shows ? prevState.shows.filter(show => show.id !== id) : prevState.shows
+        }), () => {
+          alert('Show deleted successfully!');
+          if (callback) callback();
+        });
+      } else {
+        alert('Failed to delete show.');
+      }
+    } catch (err) {
+      alert('Error deleting show.');
+    }
+  };
+
   render() {
     let { shows } = this.state;
 
@@ -47,6 +66,7 @@ export default class AdminShowsList extends Component<{}, AdminShowsListState> {
               title={show.title}
               description={show.description}
               synopsis={show.synopsis}
+              onDelete={() => this.handleDelete(show.id)}
             />
           ))}
         </div>
@@ -69,10 +89,15 @@ function InfoPanel({
   title,
   description,
   synopsis,
-  onEdit,
   onDelete
 }: InfoPanelProps) {
   const navigate = useNavigate();
+  const handleDelete = async () => {
+    if (onDelete) {
+      await onDelete();
+      navigate('/admin/tv-shows/list');
+    }
+  };
   return (
     <div className="admin-show-panel">
       <div className="admin-panel-image">
@@ -91,7 +116,7 @@ function InfoPanel({
         <p className="admin-panel-synopsis">{synopsis}</p>
         <div className="admin-panel-actions">
           <button className="edit-btn" onClick={() => navigate(`../edit/${id}`)}>Edit</button>
-          <button className="delete-btn" onClick={onDelete}>Delete</button>
+          <button className="delete-btn" onClick={handleDelete}>Delete</button>
         </div>
       </div>
     </div>

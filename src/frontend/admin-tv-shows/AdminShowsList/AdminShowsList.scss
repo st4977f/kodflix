@@ -188,6 +188,15 @@ body {
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
 }
+.admin-panel-actions .delete-btn {
+  background: #d32f2f;
+  color: #fff;
+}
+.admin-panel-actions .delete-btn:hover {
+  background: #b71c1c;
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
 .admin-panel-actions button:hover {
   background: $add-link-hover-bg;
   transform: translateY(-2px) scale(1.04);

@@ -38,6 +38,15 @@ db.connect()
         .then(() => res.status(200).json({ message: 'Show updated!' }))
         .catch((err: any) => res.status(500).send({ error: err.message }));
     });
+
+    // Delete show
+    app.delete('/api/shows/:id', (req: express.Request, res: express.Response) => {
+      const showId = req.params.id;
+      dbo.collection('shows').deleteOne({ id: showId })
+        .then(() => res.status(200).json({ message: 'Show deleted!' }))
+        .catch((err: any) => res.status(500).send({ error: err.message }));
+    });
+    
   })
   .catch((err: any) => {
     console.error('Failed to connect to MongoDB:', err);
