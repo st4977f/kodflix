@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './AdminShowsAdd.scss';
+import Form from '../Form/Form';
 
 interface AdminShowsAddState {
     id: string;
@@ -64,71 +64,22 @@ export default class AdminShowsAdd extends Component<{}, AdminShowsAddState> {
     };
 
     render() {
-        const { id, title, description, synopsis, trailerId } = this.state;
         return (
-            <div className="add-show-container">
-                <div className="add-show-title">Add New Show</div>
-                <form onSubmit={this.handleSubmit} className="add-form">
-                    <ul>
-                        <li className="form-section">
-                            <label>Add TV Show Title: </label>
-                            <input
-                                type="text"
-                                value={title}
-                                placeholder="TV Show Title..."
-                                name="title"
-                                onChange={e => this.onInputChange(e.target.name, e.target.value)}
-                                autoComplete="off" />
-                        </li>
-                        <li className="form-section">
-                            <label>Add TV Show ID: </label>
-                            <input
-                                type="text"
-                                value={id}
-                                placeholder="TV Show ID..."
-                                name="id"
-                                onChange={e => this.onInputChange(e.target.name, e.target.value)}
-                                autoComplete="off" />
-                        </li>
-                        <li className="form-section">
-                            <label>Add TV Show Genres (max 3): </label>
-                            <div className="multiple-input">
-                                {description.map((desc, index) => (
-                                    <input
-                                        type="text"
-                                        key={`desc-${index}`}
-                                        value={desc}
-                                        placeholder="Genre..."
-                                        onChange={e => this.onMultipleInput('description', e.target.value, index)}
-                                        autoComplete="off" />
-                                ))}
-                            </div>
-                        </li>
-                        <li className="form-section">
-                            <label>Add TV Show Synopsis: </label>
-                            <textarea
-                                value={synopsis}
-                                placeholder="TV Show Synopsis..."
-                                name="synopsis"
-                                onChange={e => this.onInputChange(e.target.name, e.target.value)}
-                                autoComplete="off" />
-                        </li>
-                        <li className="form-section">
-                            <label>Add YouTube Trailer ID: </label>
-                            <input
-                                type="text"
-                                value={trailerId}
-                                placeholder="YouTube Trailer ID..."
-                                name="trailerId"
-                                onChange={e => this.onInputChange(e.target.name, e.target.value)}
-                                autoComplete="off" />
-                        </li>
-                    </ul>
-                    <div className="submitBtn">
-                        <input type="submit" value="Submit" />
-                    </div>
-                </form>
-            </div>
+            <Form
+                data={this.state}
+                onInputChange={this.onInputChange}
+                onMultipleInput={this.onMultipleInput}
+                onSubmit={this.handleSubmit}
+                submitLabel="Add Show"
+                title="Add New Show"
+                labels={{
+                    title: 'Add TV Show Title',
+                    id: 'Add TV Show ID',
+                    description: 'Add TV Show Genres (max 3):',
+                    synopsis: 'Add TV Show Synopsis:',
+                    trailerId: 'Add YouTube Trailer ID:'
+                }}
+            />
         );
     }
   }
