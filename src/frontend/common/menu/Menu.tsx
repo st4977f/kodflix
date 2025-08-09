@@ -40,6 +40,11 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
               icon="admin"
               onClick={() => this.toggleMenu()}
             />
+            <MenuLink
+              text="Login" link="/login"
+              icon="login"
+              onClick={() => this.toggleMenu()}
+            />
           </div>
           <div
             className="menu-panel-overlay"

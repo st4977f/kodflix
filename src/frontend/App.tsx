@@ -9,6 +9,7 @@ import Details from './details/Details';
 import NotFound from './not-found/NotFound';
 import ManageTvShows from './manage-tv-shows/ManageTvShows';
 import AdminShows from './admin-tv-shows/AdminShows';
+import Login from './login/Login';
 
 ReactGA.initialize('G-S0QWF7JB8N');
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Gallery />} />
           <Route path="/manage/tv-shows" element={<ManageTvShows />} />
           <Route path="/not-found" element={<NotFound />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/:showId" element={<Details />} />
           <Route path="/:showId/play" element={<Play />} />
           <Route path="/admin/tv-shows/*" element={<AdminShows />} />
