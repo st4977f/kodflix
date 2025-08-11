@@ -1,18 +1,39 @@
+$color-bg: #f7f8fa;
+$color-title: #3a3a3a;
+$color-label: #444;
+$color-input-bg: #f4f6f8;
+$color-input-border: #e0e0e0;
+$color-input-text: #222;
+$color-btn-bg: #4a90e2;
+$color-btn-hover: #357ab8;
+$color-btn-text: #fff;
+$radius: 10px;
+$radius-sm: 5px;
+$radius-btn: 6px;
+$shadow: 0 2px 8px rgba(0,0,0,0.04);
+$space-lg: 32px;
+$space-md: 24px;
+$space-sm: 18px;
+$space-xs: 8px;
+$font-title: 2rem;
+$font-label: 1rem;
+$font-btn: 1rem;
+
 .show-container {
   max-width: 480px;
-  margin: 32px auto;
-  background: #f7f8fa;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  padding: 32px 24px;
+  margin: $space-lg auto;
+  background: $color-bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: $space-lg $space-md;
 }
 
 .show-title {
-  font-size: 2rem;
+  font-size: $font-title;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 24px;
-  color: #3a3a3a;
+  margin-bottom: $space-md;
+  color: $color-title;
 }
 
 .form {
@@ -20,26 +41,26 @@
 }
 
 .form-section {
-  margin-bottom: 18px;
+  margin-bottom: $space-sm;
   display: flex;
   flex-direction: column;
 }
 
 label {
-  font-size: 1rem;
+  font-size: $font-label;
   font-weight: 500;
   margin-bottom: 6px;
-  color: #444;
+  color: $color-label;
 }
 
 input[type="text"], textarea {
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 5px;
-  font-size: 1rem;
-  background: #f4f6f8;
+  padding: $space-xs 12px;
+  border: 1px solid $color-input-border;
+  border-radius: $radius-sm;
+  font-size: $font-label;
+  background: $color-input-bg;
   margin-bottom: 4px;
-  color: #222;
+  color: $color-input-text;
 }
 
 textarea {
@@ -49,7 +70,7 @@ textarea {
 
 .multiple-input {
   display: flex;
-  gap: 8px;
+  gap: $space-xs;
   flex-wrap: wrap;
   max-width: 100%;
 }
@@ -63,20 +84,20 @@ textarea {
 
 .submitBtn {
   text-align: center;
-  margin-top: 18px;
+  margin-top: $space-sm;
 }
 
 input[type="submit"] {
-  background: #4a90e2;
-  color: #fff;
+  background: $color-btn-bg;
+  color: $color-btn-text;
   border: none;
-  border-radius: 6px;
+  border-radius: $radius-btn;
   padding: 10px 32px;
-  font-size: 1rem;
+  font-size: $font-btn;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s;
-}
-input[type="submit"]:hover {
-  background: #357ab8;
+  &:hover {
+    background: $color-btn-hover;
+  }
 }

@@ -1,36 +1,86 @@
 import React, { useState } from 'react';
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.scss';
 
 export default function Login() {
+
   const [activeForm, setActiveForm] = useState<'login' | 'register'>('login');
-  // Login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  // Register state
+  const [loginSuccess, setLoginSuccess] = useState('');
+
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerPasswordConfirm, setRegisterPasswordConfirm] = useState('');
   const [registerError, setRegisterError] = useState('');
 
+  const navigate = useNavigate();
+
   // Animation classes
+  const loginFormRef = useRef<HTMLFormElement>(null);
   const loginActive = activeForm === 'login' ? 'form-wrapper is-active' : 'form-wrapper';
   const registerActive = activeForm === 'register' ? 'form-wrapper is-active' : 'form-wrapper';
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
-    if (loginUsername === 'admin' && loginPassword === 'password') {
-      alert('Login successful!');
-    } else {
-      setLoginError('Invalid username or password');
+    setLoginSuccess('');
+    // Minimum standards for login
+    if (loginUsername.length < 3) {
+      setLoginError('Username must be at least 3 characters');
+      return;
+    }
+    if (loginPassword.length < 6) {
+      setLoginError('Password must be at least 6 characters');
+      return;
+    }
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: loginUsername, password: loginPassword })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setLoginSuccess('Login successful!');
+        setIsLoggedIn(true);
+        navigate('/manage/tv-shows');
+      } else {
+        setLoginError(data.error || 'Login failed');
+        if (loginFormRef.current) {
+          loginFormRef.current.classList.add('shake');
+          setTimeout(() => {
+            loginFormRef.current && loginFormRef.current.classList.remove('shake');
+          }, 500);
+        }
+      }
+    } catch (err) {
+      setLoginError('Network error');
+      if (loginFormRef.current) {
+        loginFormRef.current.classList.add('shake');
+        setTimeout(() => {
+          loginFormRef.current && loginFormRef.current.classList.remove('shake');
+        }, 500);
+      }
     }
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegisterError('');
+    // Minimum standards for registration
+    if (registerUsername.length < 3) {
+      setRegisterError('Username must be at least 3 characters');
+      return;
+    }
+    if (registerPassword.length < 6) {
+      setRegisterError('Password must be at least 6 characters');
+      return;
+    }
     if (!registerUsername || !registerEmail || !registerPassword || !registerPasswordConfirm) {
       setRegisterError('Please fill all fields');
       return;
@@ -39,8 +89,41 @@ export default function Login() {
       setRegisterError('Passwords do not match');
       return;
     }
-    alert('Registration successful!');
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: registerUsername, email: registerEmail, password: registerPassword })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setRegisterError('');
+        setIsLoggedIn(true);
+        navigate('/manage/tv-shows');
+      } else {
+        setRegisterError(data.error || 'Registration failed');
+      }
+    } catch (err) {
+      setRegisterError('Network error');
+    }
   };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setLoginUsername('');
+    setLoginPassword('');
+    navigate('/login');
+  };
+
+  if (isLoggedIn) {
+    return (
+      <div className="login-container">
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <button className="btn-login" onClick={handleLogout}>Log out</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="login-container">
@@ -55,7 +138,7 @@ export default function Login() {
               Login
               <span className="underline"></span>
             </button>
-            <form className="login-form form form-login" onSubmit={handleLoginSubmit}>
+            <form ref={loginFormRef} className="login-form form form-login" onSubmit={handleLoginSubmit}>
               <fieldset>
                 <legend>Please, enter your username and password for login.</legend>
                 <div className="input-block">
@@ -80,6 +163,7 @@ export default function Login() {
                 </div>
               </fieldset>
               {loginError && <div className="login-error">{loginError}</div>}
+              {loginSuccess && <div className="login-success">{loginSuccess}</div>}
               <button type="submit" className="btn-login">Login</button>
             </form>
           </div>
