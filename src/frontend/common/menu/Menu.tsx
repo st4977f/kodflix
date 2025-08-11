@@ -18,6 +18,23 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
+    const token = localStorage.getItem('jwt');
+    let isLoggedIn = !!token;
+    let isAdmin = false;
+    if (token) {
+      try {
+        const base64 = token.split('.')[1];
+        if (base64) {
+          const json = atob(base64.replace(/-/g, '+').replace(/_/g, '/'));
+          const payload = JSON.parse(json);
+          console.log('JWT payload:', payload);
+          isAdmin = payload.role === 'admin';
+        }
+      } catch (e) {
+        console.warn('JWT decode error:', e);
+        isAdmin = false;
+      }
+    }
     return (
       <div className={'menu ' + (this.state.isMenuVisible ? 'is-visible' : '')}>
         <button className="menu-toggle" onClick={() => this.toggleMenu()}>
@@ -30,26 +47,43 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
               icon="home"
               onClick={() => this.toggleMenu()}
             />
-            <MenuLink
-              text="Manage TV Shows" link="/manage/tv-shows"
-              icon="tv"
-              onClick={() => this.toggleMenu()}
-            />
-            <MenuLink
-              text="Admin TV Shows" link="/admin/tv-shows"
-              icon="admin"
-              onClick={() => this.toggleMenu()}
-            />
-            <MenuLink
-              text="Login" link="/login"
-              icon="login"
-              onClick={() => this.toggleMenu()}
-            />
+            {isLoggedIn && (
+              <MenuLink
+                text="Manage TV Shows" link="/manage/tv-shows"
+                icon="tv"
+                onClick={() => this.toggleMenu()}
+              />
+            )}
+            {isAdmin && (
+              <MenuLink
+                text="Admin TV Shows" link="/admin/tv-shows"
+                icon="admin"
+                onClick={() => this.toggleMenu()}
+              />
+            )}
+            {!isLoggedIn && (
+              <MenuLink
+                text="Login" link="/login"
+                icon="login"
+                onClick={() => this.toggleMenu()}
+              />
+            )}
+            {isLoggedIn && (
+              
+              <MenuLink
+                text='Log out'
+                link="/login"
+                onClick={e => {
+                  e.preventDefault();
+                  localStorage.removeItem('jwt');
+                  window.location.replace('/login');
+                  this.toggleMenu();
+                }}
+                icon="login"
+              />
+            )}
           </div>
-          <div
-            className="menu-panel-overlay"
-            onClick={() => this.toggleMenu()}
-          />
+          <div className="menu-panel-overlay" onClick={() => this.toggleMenu()} />
         </div>
       </div>
     );

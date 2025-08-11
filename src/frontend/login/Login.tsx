@@ -45,7 +45,9 @@ export default function Login() {
         body: JSON.stringify({ username: loginUsername, password: loginPassword })
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok && data.token) {
+        localStorage.setItem('jwt', data.token);
+        window.dispatchEvent(new Event('loginStateChanged'));
         setLoginSuccess('Login successful!');
         setIsLoggedIn(true);
         navigate('/manage/tv-shows');
@@ -96,7 +98,9 @@ export default function Login() {
         body: JSON.stringify({ username: registerUsername, email: registerEmail, password: registerPassword })
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok && data.token) {
+        localStorage.setItem('jwt', data.token);
+        window.dispatchEvent(new Event('loginStateChanged'));
         setRegisterError('');
         setIsLoggedIn(true);
         navigate('/manage/tv-shows');
@@ -112,8 +116,19 @@ export default function Login() {
     setIsLoggedIn(false);
     setLoginUsername('');
     setLoginPassword('');
+    localStorage.removeItem('jwt');
+    window.dispatchEvent(new Event('loginStateChanged'));
     navigate('/login');
   };
+  // Persist login state on reload if JWT exists
+  React.useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   if (isLoggedIn) {
     return (

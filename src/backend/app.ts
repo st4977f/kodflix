@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 const port = process.env.PORT || 3001;
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +17,20 @@ import bcrypt from 'bcrypt';
 
 db.connect()
   .then((dbo: Db) => {
+    // --- Admin-only middleware ---
+    function requireAdmin(req: express.Request, res: express.Response, next: express.NextFunction) {
+      const user = (req as any).user;
+      if (user.role === 'admin') {
+        next();
+      } else {
+        res.status(403).json({ error: 'Admin access required' });
+      }
+    }
+
+    // Admin-only route
+    app.get('/api/admin/tv-shows', authenticateJWT, requireAdmin, (req: express.Request, res: express.Response) => {
+      res.json({ message: 'You are an admin!' });
+    });
     app.get('/rest/shows', (_req: express.Request, res: express.Response) => {
       dbo.collection('shows').find({}).toArray()
         .then((results: any[]) => res.send(results))
@@ -60,7 +76,9 @@ db.connect()
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         await dbo.collection('users').insertOne({ username, email, password: hashedPassword });
-        res.status(201).json({ message: 'Registration successful!' });
+        // Issue JWT
+        const token = jwt.sign({ username, email }, JWT_SECRET, { expiresIn: '7d' });
+        res.status(201).json({ message: 'Registration successful!', token });
       } catch (err: any) {
         res.status(500).json({ error: err.message });
       }
@@ -81,10 +99,38 @@ db.connect()
         if (!passwordMatch) {
           return res.status(401).json({ error: 'Invalid username or password' });
         }
-        res.status(200).json({ message: 'Login successful!' });
+        // Issue JWT
+        const token = jwt.sign({
+          username: user.username,
+          email: user.email,
+          role: user.role // <-- this is required!
+        }, JWT_SECRET, { expiresIn: '7d' });
+        res.status(200).json({ message: 'Login successful!', token });
       } catch (err: any) {
         res.status(500).json({ error: err.message });
       }
+    });
+    // --- JWT Middleware ---
+    function authenticateJWT(req: express.Request, res: express.Response, next: express.NextFunction) {
+      const authHeader = req.headers.authorization;
+      if (authHeader) {
+        const token = authHeader.split(' ')[1];
+        jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
+          if (err) {
+            return res.status(403).json({ error: 'Invalid or expired token' });
+          }
+          (req as any).user = user;
+          next();
+        });
+      } else {
+        res.status(401).json({ error: 'No token provided' });
+      }
+    }
+
+    // Example protected route
+    app.get('/api/manage/tv-shows', authenticateJWT, async (req: express.Request, res: express.Response) => {
+      const user = (req as any).user;
+      res.json({ user });
     });
     
   })

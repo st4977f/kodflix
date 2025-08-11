@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Loading from '../common/loading/loading';
 import fetchData from '../common/fetch';
+import NotFound from '../not-found/NotFound';
 import './Details.css';
 
 interface Show {
@@ -38,25 +39,34 @@ const Details: React.FC = () => {
 
   useEffect(() => {
     if (!showId) {
-      navigate('/not-found', { replace: true });
+      setLoading(false);
+      setShow(null);
       return;
     }
+    let didFinish = false;
+    const timeout = setTimeout(() => {
+      if (!didFinish) {
+        navigate('/not-found', { replace: true });
+      }
+    }, 2000);
     fetchData(`/rest/shows/${showId}`)
-      .then((show: Show) => {
-        setShow(show);
-        setLoading(false);
+      .then((show: Show | null | undefined) => {
+        didFinish = true;
+        clearTimeout(timeout);
+        if (!show) {
+          navigate('/not-found', { replace: true });
+        } else {
+          setShow(show);
+          setLoading(false);
+        }
       })
       .catch((error) => {
+        didFinish = true;
+        clearTimeout(timeout);
         console.error('Error fetching show details:', error);
-        setShow(null);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching show details:', error);
-        setShow(null);
-        setLoading(false);
         navigate('/not-found', { replace: true });
       });
+    return () => clearTimeout(timeout);
   }, [showId, navigate]);
 
   if (loading) {
@@ -65,7 +75,7 @@ const Details: React.FC = () => {
   if (show) {
     return <DetailsContent show={show} />;
   }
-  return null;
+  return <NotFound />;
 };
 
 export default Details;
