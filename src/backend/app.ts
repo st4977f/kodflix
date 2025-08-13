@@ -139,26 +139,27 @@ db.connect()
   });
 
 // Endpoint to get details of a specific show by ID
-
-  app.get('/rest/shows/:id', (req: express.Request, res: express.Response) => {
-    const showId = req.params.id;
-    db.connect()
-      .then((dbo: Db) => {
-        dbo.collection('shows').findOne({ id: showId })
-          .then((show: any) => {
-            if (show) {
-              res.send(show);
-            }
-          })
-          .catch((err: any) => res.status(500).send({ error: err.message }));
-      })
-      .catch((err: any) => res.status(500).send({ error: 'Database connection error' }));
-  })
+app.get('/rest/shows/:id', (req: express.Request, res: express.Response) => {
+  const showId = req.params.id;
+  db.connect()
+    .then((dbo: Db) => {
+      dbo.collection('shows').findOne({ id: showId })
+        .then((show: any) => {
+          if (show) {
+            res.send(show);
+          }
+        })
+        .catch((err: any) => res.status(500).send({ error: err.message }));
+    })
+    .catch((err: any) => res.status(500).send({ error: 'Database connection error' }));
+});
 
 // Serve static files from the React app
-
 const buildPath = path.join(__dirname, '../../build');
 app.use(express.static(buildPath)); 
 
-// Serve index.html for all non-API routes
+// Serve index.html for all non-API routes (SPA fallback)
+app.get(/^(?!\/(api|rest)).*$/, (req: express.Request, res: express.Response) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
+});
 
