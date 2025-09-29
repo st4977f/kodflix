@@ -43,47 +43,53 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
         <div className="menu-panel">
           <div className="menu-panel-box">
             <MenuLink
-              text="Home" link="/"
+              text="Home"
+              link="/"
               icon="home"
               onClick={() => this.toggleMenu()}
             />
             {isLoggedIn && (
               <MenuLink
-                text="Manage TV Shows" link="/manage/tv-shows"
+                text="Manage TV Shows"
+                link="/manage/tv-shows"
                 icon="tv"
                 onClick={() => this.toggleMenu()}
               />
             )}
             {isAdmin && (
               <MenuLink
-                text="Admin TV Shows" link="/admin/tv-shows"
+                text="Admin TV Shows"
+                link="/admin/tv-shows"
                 icon="admin"
                 onClick={() => this.toggleMenu()}
               />
             )}
             {!isLoggedIn && (
               <MenuLink
-                text="Login" link="/login"
+                text="Login"
+                link="/login"
                 icon="login"
                 onClick={() => this.toggleMenu()}
               />
             )}
             {isLoggedIn && (
-              
               <MenuLink
-                text='Log out'
+                text="Log out"
                 link="/login"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   localStorage.removeItem('jwt');
-                  window.location.replace('/login');
+                  window.dispatchEvent(new Event('loginStateChanged'));
                   this.toggleMenu();
                 }}
                 icon="login"
               />
             )}
           </div>
-          <div className="menu-panel-overlay" onClick={() => this.toggleMenu()} />
+          <div
+            className="menu-panel-overlay"
+            onClick={() => this.toggleMenu()}
+          />
         </div>
       </div>
     );

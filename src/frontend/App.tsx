@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import ReactGA from 'react-ga4';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Play from './play/Play';
 import Menu from './common/menu/Menu';
 import Gallery from './gallery/Gallery';
@@ -67,19 +67,20 @@ function App() {
   );
 // Redirect to /login if not logged in
 function LoginRedirect() {
-  const navigate = useLocation();
+  const navigate = useNavigate();  // Changed from useLocation
+  
   useEffect(() => {
-    // Use React navigation to avoid reload loop
-    (window as any).navigate && (window as any).navigate('/login');
+    navigate('/login');  // Use React Router's navigate, remove window.navigate
   }, [navigate]);
+  
   return null;
 }
 
 // Redirect to /manage/tv-shows if logged in
 function ManageRedirect() {
-  const navigate = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
-    (window as any).navigate && (window as any).navigate('/manage/tv-shows');
+    navigate('/manage/tv-shows');
   }, [navigate]);
   return null;
 }

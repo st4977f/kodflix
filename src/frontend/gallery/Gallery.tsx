@@ -24,7 +24,7 @@ class Gallery extends React.Component<{}, GalleryState> {
   }
 
   componentDidMount() {
-    fetchData('/kodflix/rest/shows')
+    fetchData('/rest/shows')
       .then((shows: Show[]) => {
         this.setState({ shows });
       });
