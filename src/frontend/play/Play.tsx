@@ -19,7 +19,7 @@ export default function Play() {
 
     useEffect(() => {
         if (showId) {
-            fetchData(`/rest/shows/${showId}`)
+            fetchData(`/kodflix/rest/shows/${showId}`)
                 .then(show => {
                     setShow(show);
                     setLoading(false);
