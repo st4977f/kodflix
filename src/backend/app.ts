@@ -31,7 +31,9 @@ db.connect()
     app.get('/api/admin/tv-shows', authenticateJWT, requireAdmin, (req: express.Request, res: express.Response) => {
       res.json({ message: 'You are an admin!' });
     });
-    app.get('/rest/shows', (_req: express.Request, res: express.Response) => {
+
+    // Get all shows
+    app.get('/api/shows', (_req: express.Request, res: express.Response) => {
       dbo.collection('shows').find({}).toArray()
         .then((results: any[]) => res.send(results))
         .catch((err: any) => res.status(500).send({ error: err.message }));
@@ -139,7 +141,7 @@ db.connect()
   });
 
 // Endpoint to get details of a specific show by ID
-app.get('/rest/shows/:id', (req: express.Request, res: express.Response) => {
+app.get('/api/shows/:id', (req: express.Request, res: express.Response) => {
   const showId = req.params.id;
   db.connect()
     .then((dbo: Db) => {
