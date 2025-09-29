@@ -19,7 +19,11 @@ export default function Play() {
 
     useEffect(() => {
         if (showId) {
-            fetchData(`/rest/shows/${showId}`)
+            fetchData(`/rest/shows/${showId}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+                body: ''
+            })
                 .then(show => {
                     setShow(show);
                     setLoading(false);

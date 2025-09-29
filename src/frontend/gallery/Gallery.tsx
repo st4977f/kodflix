@@ -24,7 +24,11 @@ class Gallery extends React.Component<{}, GalleryState> {
   }
 
   componentDidMount() {
-    fetchData('/rest/shows')
+    fetchData('/rest/shows', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: ''
+    })
       .then((shows: Show[]) => {
         this.setState({ shows });
       });

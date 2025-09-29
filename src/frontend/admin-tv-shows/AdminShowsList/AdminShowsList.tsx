@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../../common/loading/loading';
+import fetchData from '../../common/fetch';
 import './AdminShowsList.scss';
 
 interface Show {
@@ -23,8 +24,11 @@ export default class AdminShowsList extends Component<{}, AdminShowsListState> {
   }
 
   componentDidMount() {
-    fetch('/rest/shows')
-      .then((res) => res.json())
+    fetchData('/rest/shows', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: ''
+    })
       .then((shows: Show[]) => this.setState({ shows }));
   }
 

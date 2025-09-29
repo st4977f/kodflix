@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetchData from '../../common/fetch';
 import Form from '../Form/Form';
 
 interface AdminShowsAddState {
@@ -27,7 +28,7 @@ export default class AdminShowsAdd extends Component<{}, AdminShowsAddState> {
         const payload = { id, title, description, synopsis, trailerId };
 
         try {
-            const response = await fetch('/api/shows', {
+            const response = await fetchData('/api/shows', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

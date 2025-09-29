@@ -49,7 +49,11 @@ const Details: React.FC = () => {
         navigate('/not-found', { replace: true });
       }
     }, 2000);
-    fetchData(`/rest/shows/${showId}`)
+    fetchData(`/rest/shows/${showId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: ''
+    })
       .then((show: Show | null | undefined) => {
         didFinish = true;
         clearTimeout(timeout);

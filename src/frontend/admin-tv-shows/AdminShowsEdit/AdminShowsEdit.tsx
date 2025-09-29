@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Form from '../Form/Form';
+import fetchData from '../../common/fetch';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface AdminShowsEditState {
@@ -32,7 +33,7 @@ class AdminShowsEdit extends Component<AdminShowsEditProps & { navigate?: Functi
         const payload = { id, title, description, synopsis, trailerId };
 
         try {
-            const response = await fetch(`/api/shows/${id}`, {
+            const response = await fetchData(`/api/shows/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -76,7 +77,11 @@ class AdminShowsEdit extends Component<AdminShowsEditProps & { navigate?: Functi
         const id = this.props.id;
         if (id) {
             try {
-                const res = await fetch(`/rest/shows/${id}`);
+                const res = await fetchData(`/rest/shows/${id}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: ''
+                });
                 if (res.ok) {
                     const show = await res.json();
                     this.setState({

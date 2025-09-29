@@ -2,7 +2,7 @@ const getBasePath = () => {
   return process.env.REACT_APP_BASENAME || '';
 };
 
-export default function fetchData(endpoint: string) {
+export default function fetchData(endpoint: string, p0: { method: string; headers: { 'Content-Type': string; }; body: string; }) {
   const basePath = getBasePath();
   const fullUrl = `${basePath}${endpoint}`;
     
