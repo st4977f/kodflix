@@ -39,7 +39,7 @@ export default function Login() {
       return;
     }
     try {
-      const res = await fetch('/kodflix/api/login', {
+      const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: loginUsername, password: loginPassword })
@@ -92,7 +92,7 @@ export default function Login() {
       return;
     }
     try {
-      const res = await fetch('/kodflix/api/register', {
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: registerUsername, email: registerEmail, password: registerPassword })
